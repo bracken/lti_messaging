@@ -250,20 +250,32 @@ and this is sent up in the post message as `iframe_resize_id`
 
 # Implementations
 
+Tsugi: 
+
+https://github.com/csev/tsugi-static/blob/master/js/tsugiscripts.js#L48
+
+Canvas: 
+
+https://github.com/instructure/canvas-lms/blob/0e9ae3f5f65b7885777ffa27ef5a08747e7ac578/public/javascripts/tool_inline.js#L125
+
+Sakai:
+
+Documentation:
+https://github.com/sakaiproject/sakai/blob/8b1817a36a1da551527b41c09297ed3a7d7ca2b3/basiclti/docs/POSTMESSAGE.md
+
+https://github.com/sakaiproject/sakai/blob/8cf21791daaa0e36b95fbc0a531937f4c2caee16/library/src/webapp/js/headscripts.js#L244
+
+https://github.com/sakaiproject/sakai/search?utf8=%E2%9C%93&q=lti.frameResize&type=
+
 OpenAssessments:
+
 https://github.com/lumenlearning/OpenAssessments/blob/master/client/js/utils/communication_handler.js
 
 https://github.com/lumenlearning/candela-utility/blob/893451ccddc9e5d80abc925a834ed08f4b84358f/themes/candela/functions.php#L102
 
 PBJ:
+
 https://github.com/lumenlearning/candela-utility/blob/cc8e12837fcdbef7778ddc530af9a27612e3e12d/themes/bombadil/js/iframe_resizer.js
+
 https://github.com/lumenlearning/candela-utility/blob/893451ccddc9e5d80abc925a834ed08f4b84358f/themes/candela/functions.php#L102
-
-Tsugi:
-https://github.com/csev/tsugi-static/blob/master/js/tsugiscripts.js#L48
-
-Canvas:
-https://github.com/instructure/canvas-lms/blob/0e9ae3f5f65b7885777ffa27ef5a08747e7ac578/public/javascripts/tool_inline.js#L125
-
-
 
