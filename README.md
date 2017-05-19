@@ -17,17 +17,26 @@ mechanism can be used to send messages from TC to TP.
 ## Messages
 
 ### lti.frameResize
-```
+This message is sent to let the TC know the desired Iframe size of
+the TP. This is useful to get rid of double scrollbar situations.
+
+There is no guarantee that the TC will honor the desired size. The
+TC is likely to have a max size it allows, or make other decisions
+it deems best.
+
+The TP may want to debounce or throttle how many of these events it
+sends if the content tends to change height frequently.
+```js
 {
   subject: "lti.frameResize",
   height: 100,
-  width: 300,
+  width: 300,           // not currently in use
   iframe_resize_id: "", // in lumen usage
   element_id: "",       // in sakai/tsugi usage
 }
 ```
-
-Height or width can also receive: "max"
+Height or width can also receive `max` which means the TC should
+try to set the Iframe to use all the available space in the window.
 
 ### lti.showModuleNavigation
 ```
