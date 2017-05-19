@@ -1,8 +1,8 @@
 # LTI Iframe `parent.postMessage` communication messages
 
-##Messages
+## Messages
 
-###lti.frameResize
+### lti.frameResize
 ```
 {
   subject: "lti.frameResize",
