@@ -39,7 +39,22 @@ Height or width can also receive `max` which means the TC should
 try to set the Iframe to use all the available space in the window.
 
 ### lti.showModuleNavigation
-```
+Some TPs have internal navigation that can be confused with the
+navigation available in the TC. This message lets the TC know it
+should hide its module navigation if it can.
+
+This might not make sense in some TCs and "module navigation" may
+be ambiguous for some. The intent is to hide navigation UI items
+that might cause confusion. So it's up to the TC to decide what 
+that means.
+
+An example usage is a quiz tool that has buttons to go to the next
+and previous questions. Those buttons may easily be confused with
+the buttons to go to the next/previous module item in an LMS. So
+the TP may ask the LMS to hide its navigation buttons during the
+quiz, but send a message to show them again once the quiz is over.
+
+```js
 {
   subject: "lti.showModuleNavigation",
   show: false
@@ -49,24 +64,50 @@ try to set the Iframe to use all the available space in the window.
   show: true
 }
 ```
+
 ### lti.scrollToTop
-```
+If the TP has expanded the height of its Iframe and the user is
+scrolled down in the content and links to a new page, the 
+default browser behavior is to keep the display scrolled down
+where it currently is instead of jumping to the top like the
+user expects when they click a link.
+
+This message allows the TP to let the TC know to scroll up in
+those situations.
+
+The TP may want to debounce or throttle how many of these 
+events it sends.
+
+```js
 {
   subject: "lti.scrollToTop"
 }
 ```
 
 ### lti.navigation
-```
+If the TC is OK hiding its navigation items, it may want to
+allow the TP to still control the TC's navigation a bit.
+
+The TC can decide what locations it want to allow the TP to
+choose. The simple examples are for going to next/previous
+module items in an LMS.
+
+```js
 {
   subject: "lti.navigation",
   location: "next"
 }
 ```
-location can be: previous, next, home
+location can be: `previous`, `next`, `home`
 
 ### lti.setUnloadMessage
-```
+An Iframe can't prevent a user from navigating away in the
+outer window. In some cases, like while taking a quiz or
+editing some content, the TP can let the TC know to not
+let the user navigate away without seeing the provided
+message.
+
+```js
 {
   subject: "lti.setUnloadMessage",
   message: "Please don't leave me"
@@ -74,14 +115,24 @@ location can be: previous, next, home
 ```
 
 ### lti.removeUnloadMessage
-```
+Use in conjunction with `lti.sentUnloadMessage`. When the TP
+is done with it activity it should let the TC know to remove
+the unload message.
+
+```js
 {
   subject: "lti.removeUnloadMessage'"
 }
 ```
 
 ### lti.screenReaderAlert
-```
+Screen readers have the ability to receive an alert from
+Javascript but they sometimes can't handle such an event
+happening within an Iframe. This message can be used to
+allow a TP to send a message to the screen reader via the
+TC.
+
+```js
 {
   subject: "lti.setUnloadMessage",
   body: "Polite screen reader message"
