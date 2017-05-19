@@ -8,7 +8,8 @@
   subject: "lti.frameResize",
   height: 100,
   width: 300,
-  iframe_resize_id: ""
+  iframe_resize_id: "", // in lumen usage
+  element_id: "",       // in sakai/tsugi usage
 }
 ```
 
@@ -158,10 +159,19 @@ module.exports = IframeHelper;
 
 ```
 # LTI Launch notes:
-tsugi:
-ext_lti_element_id = tsugi_element_id_47195733 
-lumen: (query parameter)
+tsugi sends this as a launch paremeter:
+```
+ext_lti_element_id = tsugi_element_id_47195733i
+```
+and sends it up in the post message as `element_id`
+
+
+
+lumen sends this as a query parameter to some non-lti tools:
+```
 iframe_resize_id = asdfasdf
+```
+and this is sent up in the post message as `iframe_resize_id`
 
 
 # Implementations
