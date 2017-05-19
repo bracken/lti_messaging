@@ -1,5 +1,19 @@
 # LTI Iframe `parent.postMessage` communication messages
 
+This is documenting a `window.postMessage` communication mechanism 
+that is available in the Tool Consumers Canvas and Sakai, and is 
+used by many tool providers to improve the user experience of LTI
+tools.
+
+How it works: The Tool Provider (TP) is embedded in an Iframe inside
+the Tool Consumer (TC). Using Javascript's `window.postMessage` the
+TP can send a message to the TC via the browser. This allows the
+systems to communicate about practical UI things like the size the
+Iframe should be, and various navigation conveniences.
+
+In current usage messages are only sent from TP to TC, but the same
+mechanism can be used to send messages from TC to TP.
+
 ## Messages
 
 ### lti.frameResize
