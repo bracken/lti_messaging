@@ -145,6 +145,7 @@ With jquery selectors it could look something like:
 ```js
 window.addEventListener('message', function(e) {
   try {
+    // IE 8 & 9 only support string data, so parse the string.
     var message = JSON.parse(e.data);
     switch (message.subject) {
       case 'lti.frameResize':
@@ -199,6 +200,7 @@ var IframeHelper = {
     var default_height = $(document).height();
     default_height = default_height > 500 ? default_height : 500;
 
+    // IE 8 & 9 only support string data, so send objects as string
     parent.postMessage(JSON.stringify({
       subject: "lti.frameResize",
       height: default_height
