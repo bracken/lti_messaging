@@ -1,7 +1,7 @@
 # LTI Iframe `parent.postMessage` communication messages
 
-This is documenting a `window.postMessage` communication mechanism 
-that is available in the Tool Consumers Canvas and Sakai, and is 
+This is documenting a `window.postMessage` communication mechanism
+that is available in the Tool Consumers Canvas and Sakai, and is
 used by many tool providers to improve the user experience of LTI
 tools.
 
@@ -45,7 +45,7 @@ should hide its module navigation if it can.
 
 This might not make sense in some TCs and "module navigation" may
 be ambiguous for some. The intent is to hide navigation UI items
-that might cause confusion. So it's up to the TC to decide what 
+that might cause confusion. So it's up to the TC to decide what
 that means.
 
 An example usage is a quiz tool that has buttons to go to the next
@@ -67,7 +67,7 @@ quiz, but send a message to show them again once the quiz is over.
 
 ### lti.scrollToTop
 If the TP has expanded the height of its Iframe and the user is
-scrolled down in the content and links to a new page, the 
+scrolled down in the content and links to a new page, the
 default browser behavior is to keep the display scrolled down
 where it currently is instead of jumping to the top like the
 user expects when they click a link.
@@ -75,7 +75,7 @@ user expects when they click a link.
 This message allows the TP to let the TC know to scroll up in
 those situations.
 
-The TP may want to debounce or throttle how many of these 
+The TP may want to debounce or throttle how many of these
 events it sends.
 
 ```js
@@ -139,6 +139,17 @@ TC.
 }
 ```
 
+
+### lti.pageRefresh
+Ask the TC to refresh the page. The intent is a re-launch
+of the LTI tool.
+
+```js
+{
+  subject: "lti.pageRefresh"
+}
+```
+
 # Implementation examples:
 ## Receiver (Tool Consumer)
 With jquery selectors it could look something like:
@@ -180,6 +191,10 @@ window.addEventListener('message', function(e) {
 
       case 'lti.screenReaderAlert':
         $.screenReaderFlashMessageExclusive(message.body)
+        break;
+
+      case 'lti.pageRefresh':
+        location.reload(true);
         break;
     }
   } catch(err) {
@@ -228,6 +243,13 @@ var IframeHelper = {
     parent.postMessage(JSON.stringify({
       subject: "lti.scrollToTop"
     }), "*");
+  },
+
+  // tell the parent to reload
+  reloadParent: function () {
+    parent.postMessage(JSON.stringify({
+      subject: "lti.pageRefresh"
+    }), "*");
   }
 };
 
@@ -252,11 +274,11 @@ and this is sent up in the post message as `iframe_resize_id`
 
 # Implementations
 
-Tsugi: 
+Tsugi:
 
 https://github.com/csev/tsugi-static/blob/master/js/tsugiscripts.js#L48
 
-Canvas: 
+Canvas:
 
 https://github.com/instructure/canvas-lms/blob/0e9ae3f5f65b7885777ffa27ef5a08747e7ac578/public/javascripts/tool_inline.js#L125
 
@@ -280,4 +302,3 @@ PBJ:
 https://github.com/lumenlearning/candela-utility/blob/cc8e12837fcdbef7778ddc530af9a27612e3e12d/themes/bombadil/js/iframe_resizer.js
 
 https://github.com/lumenlearning/candela-utility/blob/893451ccddc9e5d80abc925a834ed08f4b84358f/themes/candela/functions.php#L102
-
